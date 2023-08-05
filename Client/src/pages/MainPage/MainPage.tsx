@@ -5,7 +5,7 @@ import { BACKEND } from '../../service/constants';
 type Item = {
   name: string;
   id: number;
-  date: Date;
+  date: string;
 }
 
 function MainPage() {
@@ -19,10 +19,14 @@ function MainPage() {
 
   return (
     <ul>
-      {items.length && items.map(item => 
+      {items.length > 0 ? items.map(item => 
         <li>
-          {item.name}
-        </li>)}
+          <span>{item.id}</span>
+          <span>{item.name}</span>
+          <span>{new Date(item.date).toLocaleString()}</span>
+        </li>)
+        :<div className="loader">Loader</div>
+      }
     </ul>
   )
 }
