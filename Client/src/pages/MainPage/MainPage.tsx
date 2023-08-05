@@ -3,36 +3,52 @@ import { request } from '../../service/fetch';
 import { BACKEND } from '../../service/constants';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../components/Loader/Loader';
+import ItemList from '../../components/ItemList/ItemList';
+import './MainPage.scss'
 
-type Item = {
+
+
+export type TItem = {
   name: string;
   id: number;
   date: string;
 }
 
+
 function MainPage() {
-  const [items, setItems] = useState<Item[]>([]);
+  const [items, setItems] = useState<TItem[]>([]);
+  const [active, setActive] = useState<TItem | undefined>(undefined);
 
   const navigate = useNavigate();
 
+
+
   useEffect(() => {
-    request<Item[]>(BACKEND+'/items')
+    request<TItem[]>(BACKEND+'/items')
       .then(items => setItems(items))
   }, []);
 
+  const handleRemove = (id: number) => {
+    if (id !== undefined) {
+      setItems(items.filter(item => item.id !== id))
+      setActive(undefined)
+    }
+  }
+
   return (
-    <ul>
-      {items.length > 0 ? 
-        items.map(item => 
-          <li key={item.id}>
-            <span>{item.id}</span>
-            <span>{item.name}</span>
-            <span>{new Date(item.date).toLocaleString()}</span>
-          </li>)
-        :<Loader/>
-      }
-      <button onClick={() => navigate('/create')}>Create</button>
-    </ul>
+      <div className='main'>
+        <ItemList 
+          items={items}
+          setItems={setItems}
+          handleRemove={handleRemove}
+          setActive={setActive}
+          active={active}
+        />  
+        <div className="main__bottom">
+          <button onClick={() => navigate('/create')}>Create</button>
+        </div>
+      </div>
+      // <Loader/>
   )
 }
 
