@@ -4,6 +4,7 @@ import { BACKEND } from '../../service/constants';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../components/Loader/Loader';
 import ItemList from '../../components/ItemList/ItemList';
+import {motion} from 'framer-motion'
 import './MainPage.scss'
 
 
@@ -54,7 +55,13 @@ function MainPage() {
           active={active}
         />  
         <div className="main__bottom">
-          <button onClick={() => navigate('/create')}>Create</button>
+          <motion.button 
+            className='main_button'
+            onClick={() => navigate('/create')}
+            whileHover={{scale: 1.1, transition: {duration: .4}}}
+          >
+            Create
+          </motion.button>
         </div>
       </div>
       // <Loader/>

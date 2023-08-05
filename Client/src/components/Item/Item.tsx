@@ -51,15 +51,17 @@ function Item({item, setActive, handleRemove}: itemProps) {
     >      
         <span className="item_id">{item.id}</span>
         <h4 className='item_name'>{item.name}</h4>
-        <span className="item_date">{new Date(item.date).toLocaleDateString()}</span>
-        <i 
-            className="fa fa-trash"
-            onClick={() => handleRemove(item.id)}
-        />
-        <i 
-            className="fa-regular fa-pen-to-square"
-            onClick={() => navigate(`edit/${item.id}`)}
-        />
+        <div className="item_end">
+            <span className="item_date">{new Date(item.date).toLocaleDateString()}</span>
+            <i 
+                className="fa fa-trash item_icon"
+                onClick={() => handleRemove(item.id)}
+            />
+            <i 
+                className="fa-regular fa-pen-to-square item_icon"
+                onClick={() => navigate(`edit/${item.id}`)}
+            />
+        </div>
     </Reorder.Item>
   )
 }
