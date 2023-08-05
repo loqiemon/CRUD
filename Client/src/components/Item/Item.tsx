@@ -2,6 +2,7 @@ import React from 'react'
 import { Reorder } from "framer-motion"
 import { TItem } from '../../pages/MainPage/MainPage'
 import './Item.scss'
+import { useNavigate } from 'react-router-dom'
 
 type itemProps = {
     item: TItem
@@ -29,9 +30,11 @@ const variants  = {
 }
 
 function Item({item, setActive, handleRemove}: itemProps) {
+  const navigate = useNavigate();
+    
   const timeout = setTimeout(() => {
     setActive(undefined)
-  }, 50000)
+  }, 5000)
 
   return (
     <Reorder.Item
@@ -50,6 +53,10 @@ function Item({item, setActive, handleRemove}: itemProps) {
         <i 
             className="fa fa-trash"
             onClick={() => handleRemove(item.id)}
+        />
+        <i 
+            className="fa-regular fa-pen-to-square"
+            onClick={() => navigate(`edit/${item.id}`)}
         />
     </Reorder.Item>
   )
