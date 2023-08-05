@@ -15,6 +15,10 @@
   border: 1px #363636 solid;
   margin-top: 12px;
 }
+.item:hover {
+  cursor: -webkit-grab;
+  cursor: grab;
+}
 
 .item-active {
   border: 1px #fff solid;
@@ -27,6 +31,7 @@
 .fa-trash:hover {
   scale: 1.4;
   color: red;
+  cursor: pointer;
 }
 
 .fa-pen-to-square {
@@ -34,6 +39,7 @@
   transition: all 0.4s ease-in-out;
 }
 .fa-pen-to-square:hover {
+  cursor: pointer;
   scale: 1.4;
   color: rgb(16, 211, 255);
 }/*# sourceMappingURL=Item.css.map */
