@@ -18,17 +18,17 @@ function MainPage() {
   useEffect(() => {
     request<Item[]>(BACKEND+'/items')
       .then(items => setItems(items))
-
   }, []);
 
   return (
     <ul>
-      {items.length > 0 ? items.map(item => 
-        <li>
-          <span>{item.id}</span>
-          <span>{item.name}</span>
-          <span>{new Date(item.date).toLocaleString()}</span>
-        </li>)
+      {items.length > 0 ? 
+        items.map(item => 
+          <li key={item.id}>
+            <span>{item.id}</span>
+            <span>{item.name}</span>
+            <span>{new Date(item.date).toLocaleString()}</span>
+          </li>)
         :<Loader/>
       }
       <button onClick={() => navigate('/create')}>Create</button>
