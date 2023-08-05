@@ -1,7 +1,7 @@
-
+type methods = 'DELETE' | 'POST' | 'GET' | 'POST';
 
 type RequestObj = {
-    method: string;
+    method: methods;
     body: BodyInit;
     headers: HeadersInit;
 }
