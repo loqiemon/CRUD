@@ -11,8 +11,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<CreatePage/>}/>
-        <Route path='/s' element={<MainPage/>}/>
+        <Route path='/s' element={<CreatePage/>}/>
+        <Route path='/' element={<MainPage/>}/>
       </Routes>
     </BrowserRouter>
   )
