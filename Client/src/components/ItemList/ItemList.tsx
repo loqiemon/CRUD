@@ -20,7 +20,6 @@ function ItemList({items, setItems, handleRemove, setActive, active} : ItemListP
                 {items.map(item =><Item item={item} key={item.id} setActive={setActive} handleRemove={handleRemove}/>)}
             </AnimatePresence>
         </Reorder.Group>
-
     </div>
   )
 }

@@ -2,11 +2,14 @@
     position: relative;
     width: 100%;
     height: 500px;
+    padding: 10px;
+    border: 1px #a19d9d solid;
+    border-radius: 15px;
 }
 
 .item_list {
     width: 100%;
-    height: 90%;
+    height: 95%;
     margin: 0 auto;
     padding: 10px;
     overflow-y: scroll;

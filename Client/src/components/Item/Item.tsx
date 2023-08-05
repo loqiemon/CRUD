@@ -27,6 +27,7 @@ const variants  = {
         scale: 1.2,
         backgroundColor: '#009ecb',
     }
+    
 }
 
 function Item({item, setActive, handleRemove}: itemProps) {
@@ -46,6 +47,7 @@ function Item({item, setActive, handleRemove}: itemProps) {
             setActive(item)
         }}
         onDragEnd={() => timeout}
+        whileHover={{scale: 1.1, transition: { duration: .4 },}}
     >      
         <span className="item_id">{item.id}</span>
         <h4 className='item_name'>{item.name}</h4>
