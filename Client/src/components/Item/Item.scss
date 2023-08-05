@@ -4,6 +4,15 @@
     justify-content: center;
     gap: 12px;
     align-items: center;
+    border-radius: 12px;
+    border: 1px #363636 solid;
+    margin-top: 12px;
+}
+
+.item-active {
+
+    border: 1px #fff solid;
+
 }
 
 

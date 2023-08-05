@@ -25,7 +25,7 @@ const variants  = {
     },
     whileDrag: {      
         scale: 1.2,
-
+        backgroundColor: '#009ecb',
     }
 }
 
@@ -38,7 +38,7 @@ function Item({item, setActive, handleRemove}: itemProps) {
 
   return (
     <Reorder.Item
-        className="item"
+        className={item.less ? "item item-active": 'item'}
         value={item}
         {...variants}
         onDragStart={(e) => {
