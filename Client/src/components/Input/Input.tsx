@@ -1,13 +1,17 @@
-import React from 'react'
+import React from 'react';
+import './Input.scss'
+
+type InputTypes = 'button' | 'text' | 'checkbox' | 'date' | 'email' | 'file' | 'password' | 'submit'
 
 type InputProps = {
     placeholder: string;
     name?: string;
+    inputType?: InputTypes;
 }
 
-function Input({placeholder, name}: InputProps) {
+function Input({placeholder, name, inputType}: InputProps) {
   return (
-    <input type="text" placeholder={placeholder} name={name || ''}/>
+    <input type={inputType} placeholder={placeholder} name={name || ''} className='input' autoComplete='off'/>
   )
 }
 
