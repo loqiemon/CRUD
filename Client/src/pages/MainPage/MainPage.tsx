@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { request } from '../../service/fetch';
 import { BACKEND } from '../../service/constants';
+import { useNavigate } from 'react-router-dom';
 
 type Item = {
   name: string;
@@ -10,6 +11,8 @@ type Item = {
 
 function MainPage() {
   const [items, setItems] = useState<Item[]>([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     request<Item[]>(BACKEND+'/items')
@@ -27,6 +30,7 @@ function MainPage() {
         </li>)
         :<div className="loader">Loader</div>
       }
+      <button onClick={() => navigate('/create')}>Create</button>
     </ul>
   )
 }
