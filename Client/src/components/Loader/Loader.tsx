@@ -6,6 +6,7 @@ function Loader() {
   return (
     <motion.div
       className="box"
+      id='loader'
       animate={{
         rotate: [0, 90, 180, 270, 360],
         borderRadius: ["10%", "25%", "50%",  "25%", "0%"],

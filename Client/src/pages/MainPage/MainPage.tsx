@@ -20,6 +20,7 @@ export type TItem = {
 function MainPage() {
   const [items, setItems] = useState<TItem[]>([]);
   const [active, setActive] = useState<TItem | undefined>(undefined);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -33,10 +34,14 @@ function MainPage() {
   }
 
   useEffect(() => {
+    setLoading(true)
     request<TItem[]>(BACKEND+'events')
       .then(items => items.sort(compare))
       .then(items => items.map(item => {return {...item, less:lessMonth(item)}}))
-      .then(items => setItems(items))
+      .then(items => {
+        setItems(items)
+        setLoading(false)
+      })
   }, []);
 
 
@@ -54,26 +59,28 @@ function MainPage() {
   }
 
   return (
-      <div className='main'>
-        {items.length > 0 && <ItemList 
-          items={items}
-          setItems={setItems}
-          handleRemove={handleRemove}
-          setActive={setActive}
-          active={active}
-        />}     
-        {items.length === 0 && <h2>Нет записей</h2>}
-        <div className="main__bottom">
-          <motion.button 
-            className='main_button'
-            onClick={() => navigate('/create')}
-            whileHover={{scale: 1.1, transition: {duration: .4}}}
-          >
-            Create
-          </motion.button>
+      <>
+        {loading && <Loader/>}
+        <div className='main'>
+          {items.length > 0 && <ItemList 
+            items={items}
+            setItems={setItems}
+            handleRemove={handleRemove}
+            setActive={setActive}
+            active={active}
+          />}     
+          {items.length === 0 && !loading && <h2>Нет записей</h2>}
+          <div className="main__bottom">
+            <motion.button 
+              className='main_button'
+              onClick={() => navigate('/create')}
+              whileHover={{scale: 1.1, transition: {duration: .4}}}
+            >
+              Create
+            </motion.button>
+          </div>
         </div>
-      </div>
-      // <Loader/>
+      </>
   )
 }
 

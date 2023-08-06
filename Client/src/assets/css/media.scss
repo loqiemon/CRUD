@@ -1,12 +1,25 @@
 
+@media(max-width: 3440px) {
+    #loader {
+        left: 47%;
+    }
+}
+
 @media(max-width: 1398px) {
-    
+    #loader {
+        left: 45%;
+    }
 }
 
 @media(max-width: 1198px) {
+
     .main .main__list {
         height: 100%;
 
+    }
+
+    #loader {
+        left: 45%;
     }
 }
 
@@ -15,10 +28,15 @@
 }
 
 @media(max-width: 766px) {
-
+    #loader {
+        left: 43.5%;
+    }
 }
 
 @media(max-width: 576px) {
+    #loader {
+        left: 42%;
+    }
     .item_list .item {
         padding: 5px;
         flex-direction: column;
@@ -36,6 +54,9 @@
 }
 
 @media(max-width: 376px) {
+    #loader {
+        left: 35.5%;
+    }
     #root {
         padding: 5px;
     }
