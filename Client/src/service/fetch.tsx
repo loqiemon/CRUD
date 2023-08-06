@@ -2,7 +2,7 @@ type methods = 'DELETE' | 'POST' | 'GET' | 'POST';
 
 type RequestObj = {
     method: methods;
-    body: BodyInit;
+    body: object;
     headers: HeadersInit;
 }
 

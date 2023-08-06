@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
 import Form from '../../components/Form/Form'
 import Input from '../../components/Input/Input'
 import { request } from '../../service/fetch';
@@ -7,32 +7,48 @@ import { useNavigate } from 'react-router-dom';
 import './CreatePage.scss'
 import { DatePicker } from "antd";
 import { useCheck } from "../../utils/useCheck";
-
+import {Dayjs} from 'dayjs';
 
 function CreatePage() {
   const navigate = useNavigate();
   const [date, setDate] = useState<Date>();
   const [error, setError] = useState({name: false, date: false});
+  const [name, setName] = useState<string>('');
 
-  const onChange = (date) => {
-    handleDateCheck()
-    setDate(date);
-  }
+
+  const onChange = (value: Dayjs | null) => {
+    handleDateCheck();
+    if (value) {
+      setDate(value.toDate()); 
+    }
+  };
+
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const name = e.target.name.value;
-    
-
     if (useCheck(name) && date !== undefined && handleDateCheck()) {
       request(BACKEND+'events', {
         method: 'POST',
         headers: {"Content-Type": "application/json"},
         body: {name: name, date: date}
       })
-      e.target.name.value = '';
-      navigate('/');
+      setName('');
+      //Костыль из-за долгого обновления бд
+      setTimeout(()=> {
+        navigate('/');
+      }, 500)
     }
+  }
+
+  const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    setName(inputValue)
+    if (!useCheck(inputValue)) {
+      setError((prev) => { return {...prev, name: true}})
+    }else {
+      setError((prev) => { return {...prev, name: false}})
+    }
+    handleDateCheck()
   }
 
   //Убрать в кастомный хук
@@ -52,14 +68,7 @@ function CreatePage() {
     return false
   }
 
-  const handleInputCheck = (name: string): void => {
-    if (!useCheck(name)) {
-      setError((prev) => { return {...prev, name: true}})
-    }else {
-      setError((prev) => { return {...prev, name: false}})
-    }
-    handleDateCheck()
-  }
+
 
   return (
     <div className='create'>
@@ -72,7 +81,13 @@ function CreatePage() {
             border: error.date ? '2px red solid' : 'none'
           }}
         />
-        <Input placeholder='Название' name='name' error={error.name} onCheck={handleInputCheck}/>
+        <Input 
+          placeholder='Название'
+          name='name'
+          error={error.name}
+          value={name}
+          onCheck={onInputChange}
+        />
       </Form>
     </div>
   )

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import  {useState, useEffect} from 'react'
 import { request } from '../../service/fetch';
 import { BACKEND } from '../../service/constants';
 import { useNavigate } from 'react-router-dom';

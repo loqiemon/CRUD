@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { Reorder } from "framer-motion"
 import { TItem } from '../../pages/MainPage/MainPage'
 import './Item.scss'
@@ -42,7 +42,7 @@ function Item({item, setActive, handleRemove}: itemProps) {
         className={item.less ? "item item-active": 'item'}
         value={item}
         {...variants}
-        onDragStart={(e) => {
+        onDragStart={() => {
             clearTimeout(timeout)
             setActive(item)
         }}

@@ -1,11 +1,11 @@
-import { useState, useEffect, MouseEventHandler } from 'react'
-import { Reorder, AnimatePresence, motion } from "framer-motion"
+import { MouseEventHandler } from 'react'
+import { Reorder, AnimatePresence } from "framer-motion"
 import { TItem } from '../../pages/MainPage/MainPage';
 import Item from '../Item/Item';
 import './ItemList.scss'
 
 type ItemListProps = {
-    setItems: Function;
+    setItems: (newOrder: TItem[]) => void;
     handleRemove: Function;
     items: TItem[];
     setActive: Function;
@@ -14,7 +14,7 @@ type ItemListProps = {
     desc: boolean;
 }
 
-function ItemList({items, setItems, handleRemove, setActive, active, useSort, desc} : ItemListProps) {
+function ItemList({items, setItems, handleRemove, setActive, useSort, desc} : ItemListProps) {
   return (
     <div className='main__list'>
         <Reorder.Group as='ol' axis='y' values={items} onReorder={setItems} className='item_list'>
@@ -26,7 +26,13 @@ function ItemList({items, setItems, handleRemove, setActive, active, useSort, de
               onClick={useSort}
             />
             <AnimatePresence>
-                {items.map(item =><Item item={item} key={item.id} setActive={setActive} handleRemove={handleRemove}/>)}
+                {items.map(item =><Item 
+                                      item={item}
+                                      key={item.id}
+                                      setActive={setActive}
+                                      handleRemove={handleRemove}
+                                      />
+                          )}
             </AnimatePresence>
         </Reorder.Group>
     </div>

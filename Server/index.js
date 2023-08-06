@@ -5,7 +5,8 @@ const eventRouter = require('./routes/eventRouter.js');
 require('dotenv').config();
 
 const corsOptions = {
-    origin: "http://localhost:5173",
+    origin: "https://loqiemoncrud.netlify.app",
+    // origin: "http://localhost:5173",
     credentials: true 
 };
 
@@ -19,6 +20,7 @@ db.authenticate()
 
 const app = express();
 
+app.use(express.static('public'))
 app.use(cors(corsOptions));
 app.use((req, res, next) => {
     console.log(`${req.method} ${req.url}`);
@@ -26,7 +28,12 @@ app.use((req, res, next) => {
 });
 app.use(express.json());
 app.use("/api/v1/", eventRouter);
+app.get('/', (req, res) => {
+    res.sendFile('index.html', {root: path.join(__dirname, 'public')});
+  })
 
-const server = app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT, () => {
     console.log(`Server started on ${process.env.PORT}`)
 })
+
+module.exports = app
