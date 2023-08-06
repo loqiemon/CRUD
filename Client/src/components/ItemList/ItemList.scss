@@ -36,6 +36,14 @@
 
 }
 
+.fa-arrow-up-short-wide {
+  transition: all .4s ease-in-out;
+  cursor: pointer;
+  &:hover {
+    scale: 1.25;
+    color: rgb(16, 211, 255);
+  }
+}
 
 
 

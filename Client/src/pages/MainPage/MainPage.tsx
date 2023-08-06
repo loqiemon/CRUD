@@ -5,7 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import Loader from '../../components/Loader/Loader';
 import ItemList from '../../components/ItemList/ItemList';
 import {motion} from 'framer-motion'
+import { compare, lessMonth } from '../../utils/date';
 import './MainPage.scss'
+
 
 
 
@@ -21,22 +23,15 @@ function MainPage() {
   const [items, setItems] = useState<TItem[]>([]);
   const [active, setActive] = useState<TItem | undefined>(undefined);
   const [loading, setLoading] = useState(false);
+  const [desc, setDesc] = useState(false);
 
   const navigate = useNavigate();
 
-  const compare = (a:TItem, b:TItem) => new Date(a.date).getTime() - new Date(b.date).getTime();
-  const lessMonth = (item: TItem):boolean => {
-    const currentTime = new Date().getTime();
-    const itemTime = new Date(item.date).getTime();
-    const moreThanMonth = itemTime - currentTime < 2592000000;
-    const lessThanMonth = currentTime - itemTime < 2592000000;
-    return lessThanMonth && moreThanMonth
-  }
 
   useEffect(() => {
     setLoading(true)
     request<TItem[]>(BACKEND+'events')
-      .then(items => items.sort(compare))
+      .then(items => items.sort((a, b)=>compare(a, b, 'desc')))
       .then(items => items.map(item => {return {...item, less:lessMonth(item)}}))
       .then(items => {
         setItems(items)
@@ -58,16 +53,23 @@ function MainPage() {
     }
   }
 
+  const useSort = () => {
+    setItems(items => items.sort((a, b) => compare(a, b, desc === false ? 'asc' : 'desc')))
+    setDesc((prev)=>!prev)
+  }
+
   return (
       <>
         {loading && <Loader/>}
         <div className='main'>
-          {items.length > 0 && <ItemList 
+          {items.length > 0 && <ItemList
+            useSort={useSort}
             items={items}
             setItems={setItems}
             handleRemove={handleRemove}
             setActive={setActive}
             active={active}
+            desc={desc}
           />}     
           {items.length === 0 && !loading && <h2>Нет записей</h2>}
           <div className="main__bottom">
