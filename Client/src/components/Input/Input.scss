@@ -1,9 +1,14 @@
 .input {
     margin-top: 10px;
-    width:50%;
+    width:290px;
     height: 40px;
     padding: 6px;
     border: none;
     border-radius: 10px;
     border: 1px #fff solid;
+    
+}
+
+.input-error {
+    border: 1px red solid;
 }

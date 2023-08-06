@@ -47,13 +47,14 @@ function MainPage() {
 
   return (
       <div className='main'>
-        <ItemList 
+        {items.length > 0 && <ItemList 
           items={items}
           setItems={setItems}
           handleRemove={handleRemove}
           setActive={setActive}
           active={active}
-        />  
+        />}     
+        {items.length === 0 && <h2>Нет записей</h2>}
         <div className="main__bottom">
           <motion.button 
             className='main_button'

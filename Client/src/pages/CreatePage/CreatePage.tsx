@@ -6,13 +6,15 @@ import { BACKEND } from '../../service/constants';
 import { useNavigate } from 'react-router-dom';
 import './CreatePage.scss'
 import { DatePicker } from "antd";
+import { useCheck } from "../../utils/useCheck";
 
 function CreatePage() {
   const navigate = useNavigate();
-  const [date, setDate] = useState(new Date());
-
+  const [date, setDate] = useState();
+  const [error, setError] = useState({name: false, date: false});
 
   const onChange = (date) => {
+    setError((prev) => { return {...prev, date: false}})
     setDate(date);
   }
 
@@ -20,7 +22,8 @@ function CreatePage() {
     e.preventDefault();
     const name = e.target.name.value;
 
-    if (name.length > 0 && date !== undefined) {
+
+    if (useCheck(name) && date !== undefined) {
       request(BACKEND+'/items', {
         method: 'POST',
         headers: {"Content-Type": "application/json"},
@@ -31,11 +34,29 @@ function CreatePage() {
     }
   }
 
+  const handleCheck = (name: string): void => {
+    if (!useCheck(name)) {
+      setError((prev) => { return {...prev, name: true}})
+    }else {
+      setError((prev) => { return {...prev, name: false}})
+    }
+    if (date === undefined) {
+      setError((prev) => { return {...prev, date: true}})
+    }
+  }
+
   return (
     <div className='create'>
       <Form buttonName='Create' handleSubmit={handleSubmit}>
-        <DatePicker onChange={onChange} />
-        <Input placeholder='Название' name='name'/>
+        <DatePicker 
+          onChange={onChange}
+          style={{
+            width: '290px',
+            height: '40px',
+            border: error.date ? '2px red solid' : 'none'
+          }}
+        />
+        <Input placeholder='Название' name='name' error={error.name} onCheck={handleCheck}/>
       </Form>
     </div>
   )
