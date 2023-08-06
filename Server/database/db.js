@@ -1,6 +1,6 @@
 const { Sequelize } = require('sequelize');
-
-module.exports = new Sequelize("postgresql://postgres:dypmbc2x9ubJpCHYobrY@containers-us-west-141.railway.app:7406/railway", {
+require('dotenv').config();
+module.exports = new Sequelize(process.env.DATABASE, {
   dialect: 'postgres',
   operatorsAliases: 0,
   pool: {

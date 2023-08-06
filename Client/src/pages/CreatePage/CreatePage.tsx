@@ -25,7 +25,7 @@ function CreatePage() {
     
 
     if (useCheck(name) && date !== undefined && handleDateCheck()) {
-      request(BACKEND+'/items', {
+      request(BACKEND+'events', {
         method: 'POST',
         headers: {"Content-Type": "application/json"},
         body: {name: name, date: date}

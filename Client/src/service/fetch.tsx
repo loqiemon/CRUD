@@ -14,12 +14,13 @@ export async function request<T>(url: string, requestObj?:RequestObj) : Promise<
         const response = await fetch(url, {
             method: requestObj.method,
             headers: requestObj.headers,
-            body: JSON.stringify(requestObj.body)
+            body: JSON.stringify(requestObj.body),
+            credentials: 'include' 
         });
         const body = await response.json();
         return body
     }else {
-        const response = await fetch(url);
+        const response = await fetch(url, {credentials: 'include' });
         const body = await response.json();
         return body
     }

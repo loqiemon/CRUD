@@ -4,10 +4,10 @@ const eventRouter = require('./routes/eventRouter.js');
 
 require('dotenv').config();
 
-const corsMiddleware = cors({
-    credentials: true,
-    origin: process.env.ORIGIN
-});
+const corsOptions = {
+    origin: "http://localhost:5173",
+    credentials: true 
+};
 
 const db = require('./database/db.js')
 db.authenticate()
@@ -19,11 +19,11 @@ db.authenticate()
 
 const app = express();
 
+app.use(cors(corsOptions));
 app.use((req, res, next) => {
     console.log(`${req.method} ${req.url}`);
     next();
 });
-app.use(corsMiddleware);
 app.use(express.json());
 app.use("/api/v1/", eventRouter);
 

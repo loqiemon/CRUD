@@ -33,7 +33,7 @@ function MainPage() {
   }
 
   useEffect(() => {
-    request<TItem[]>(BACKEND+'/items')
+    request<TItem[]>(BACKEND+'events')
       .then(items => items.sort(compare))
       .then(items => items.map(item => {return {...item, less:lessMonth(item)}}))
       .then(items => setItems(items))
