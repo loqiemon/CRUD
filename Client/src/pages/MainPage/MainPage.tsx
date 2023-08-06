@@ -27,7 +27,9 @@ function MainPage() {
   const lessMonth = (item: TItem):boolean => {
     const currentTime = new Date().getTime();
     const itemTime = new Date(item.date).getTime();
-    return currentTime - itemTime < 2592000000
+    const moreThanMonth = itemTime - currentTime < 2592000000;
+    const lessThanMonth = currentTime - itemTime < 2592000000;
+    return lessThanMonth && moreThanMonth
   }
 
   useEffect(() => {
