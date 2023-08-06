@@ -42,8 +42,14 @@ function MainPage() {
 
   const handleRemove = (id: number) => {
     if (id !== undefined) {
-      setItems(items.filter(item => item.id !== id))
-      setActive(undefined)
+      request(BACKEND+`events/${id}`, {
+        method: 'DELETE',
+        headers: {"Content-Type": "application/json"},
+        body: {}
+      }).then(() => {
+        setItems(items.filter(item => item.id !== id))
+        setActive(undefined)
+      }).catch(() => alert("не удалось удалить"))
     }
   }
 
