@@ -18,6 +18,9 @@ const Events = db.define('events',
       type: DataTypes.DATE,
       allowNull: false
     },
+  },
+  {
+    timestamps: false
   }
 )
 

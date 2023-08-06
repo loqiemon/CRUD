@@ -5,7 +5,7 @@ module.exports.createEvent = async (req, res) => {
 		const { name, date } = req.body;
 		const event = await Event.create({
             name: name,
-            date: date,
+            date: new Date(date),
         });
 		return res.json(event);
 	} catch (e) {
@@ -42,7 +42,7 @@ module.exports.editEvent = async (req, res) => {
 		const {name, date, id} = req.body;
 		const updatedEvent = await Event.update({
             name: name,
-            date: date
+            date: new Date(date)
           }, {
             where: {
               id: id
