@@ -49,8 +49,10 @@ function Item({item, setActive, handleRemove}: itemProps) {
         onDragEnd={() => timeout}
         whileHover={{scale: 1.05, transition: { duration: .4 },}}
     >      
-        <span className="item_id">{item.id}</span>
-        <h4 className='item_name'>{item.name}</h4>
+        <div className="item_start">
+            <span className="item_id">{item.id}</span>
+            <h4 className='item_name'>{item.name}</h4>
+        </div>
         <div className="item_end">
             <span className="item_date">{new Date(item.date).toLocaleDateString()}</span>
             <i 

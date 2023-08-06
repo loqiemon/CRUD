@@ -23,7 +23,7 @@ function MainPage() {
 
   const navigate = useNavigate();
 
-  const compare = (a:TItem, b:TItem) => new Date(b.date).getTime() - new Date(a.date).getTime();
+  const compare = (a:TItem, b:TItem) => new Date(a.date).getTime() - new Date(b.date).getTime();
   const lessMonth = (item: TItem):boolean => {
     const currentTime = new Date().getTime();
     const itemTime = new Date(item.date).getTime();

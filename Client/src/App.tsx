@@ -1,7 +1,8 @@
 
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import './App.css'
+import './App.scss'
+import './assets/css/media.scss'
 import CreatePage from './pages/CreatePage/CreatePage'
 import MainPage from './pages/MainPage/MainPage'
 
