@@ -1,4 +1,4 @@
-
+const Event = require('../models/event.js')
 
 module.exports.createEvent = async (req, res) => {
 	try {
