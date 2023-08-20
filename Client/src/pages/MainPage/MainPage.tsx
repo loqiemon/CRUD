@@ -23,7 +23,6 @@ function MainPage() {
   const [items, setItems] = useState<TItem[]>([]);
   const [active, setActive] = useState<TItem | undefined>(undefined);
   const [loading, setLoading] = useState(false);
-  const [desc, setDesc] = useState(false);
 
   const navigate = useNavigate();
 
@@ -53,23 +52,16 @@ function MainPage() {
     }
   }
 
-  const useSort = () => {
-    setItems(items => items.sort((a, b) => compare(a, b, desc === false ? 'asc' : 'desc')))
-    setDesc((prev)=>!prev)
-  }
 
   return (
       <>
         {loading && <Loader/>}
         <div className='main'>
           {items.length > 0 && <ItemList
-            useSort={useSort}
             items={items}
-            setItems={setItems}
             handleRemove={handleRemove}
             setActive={setActive}
             active={active}
-            desc={desc}
           />}     
           {items.length === 0 && !loading && <h2>Нет записей</h2>}
           <div className="main__bottom">
@@ -78,7 +70,7 @@ function MainPage() {
               onClick={() => navigate('/create')}
               whileHover={{scale: 1.1, transition: {duration: .4}}}
             >
-              Create
+              Создать
             </motion.button>
           </div>
         </div>
