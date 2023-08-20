@@ -30,23 +30,14 @@ const variants  = {
     
 }
 
-function Item({item, setActive, handleRemove}: itemProps) {
+function Item({item, handleRemove}: itemProps) {
   const navigate = useNavigate();
     
-  const timeout = setTimeout(() => {
-    setActive(undefined)
-  }, 5000)
-
   return (
     <Reorder.Item
         className={item.less ? "item item-active": 'item'}
         value={item}
         {...variants}
-        onDragStart={() => {
-            clearTimeout(timeout)
-            setActive(item)
-        }}
-        onDragEnd={() => timeout}
         whileHover={{scale: 1.05, transition: { duration: .4 },}}
     >      
         <div className="item_start">
