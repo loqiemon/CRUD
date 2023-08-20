@@ -9,8 +9,6 @@ import { compare, lessMonth } from '../../utils/date';
 import './MainPage.scss'
 
 
-
-
 export type TItem = {
   name: string;
   id: number;
@@ -21,7 +19,6 @@ export type TItem = {
 
 function MainPage() {
   const [items, setItems] = useState<TItem[]>([]);
-  const [active, setActive] = useState<TItem | undefined>(undefined);
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -47,7 +44,6 @@ function MainPage() {
         body: {}
       }).then(() => {
         setItems(items.filter(item => item.id !== id))
-        setActive(undefined)
       }).catch(() => alert("не удалось удалить"))
     }
   }
@@ -55,13 +51,10 @@ function MainPage() {
 
   return (
       <>
-        {loading && <Loader/>}
-        <div className='main'>
+        {loading === true ? <Loader/> : <div className='main'>
           {items.length > 0 && <ItemList
             items={items}
             handleRemove={handleRemove}
-            setActive={setActive}
-            active={active}
           />}     
           {items.length === 0 && !loading && <h2>Нет записей</h2>}
           <div className="main__bottom">
@@ -73,7 +66,7 @@ function MainPage() {
               Создать
             </motion.button>
           </div>
-        </div>
+        </div>}
       </>
   )
 }
